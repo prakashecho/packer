@@ -3,6 +3,11 @@
 # Hardcoded AMI ID
 SOURCE_AMI_ID="ami-0ad9a9727bcbcf904"
 
+
+
+# KMS Key ID to use for encryption during copy (replace with your KMS key ID)
+KMS_KEY_ID="arn:aws:kms:us-east-1:874599947932:key/mrk-a33ec626fb7946a480c0dde33def8dd0"
+
 # AWS accounts to share the AMI with (replace with actual account IDs)
 ACCOUNTS=(
   "280435798514"
@@ -31,7 +36,7 @@ wait_for_ami() {
 # Copy AMI to specified regions and share with specified accounts
 for region in "${REGIONS[@]}"; do
   echo "Copying AMI to region: $region"
-  REGIONAL_AMI_ID=$(aws ec2 copy-image --source-image-id "$SOURCE_AMI_ID" --source-region "us-east-1" --region "$region" --name "Jenkins-AMI-$region" --output text)
+  REGIONAL_AMI_ID=$(aws ec2 copy-image --source-image-id "$SOURCE_AMI_ID" --source-region "us-east-1" --region "$region" --name "Jenkins-AMI-$region" --output text --encrypted --kms-key-id "$KMS_KEY_ID")
   echo "AMI ID in $region: $REGIONAL_AMI_ID"
 
   # Wait for the AMI to be available before sharing
