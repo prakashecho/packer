@@ -9,7 +9,7 @@ packer {
 
 source "amazon-ebs" "ubuntu" {
   ami_name      = "Jenkins-AMI"
-  instance_type = "t2.small"
+  instance_type = "t2.micro"
   region        = "us-east-1"
   source_ami    = "ami-04b70fa74e45c3917"
   ssh_username  = "ubuntu"
