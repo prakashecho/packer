@@ -1,13 +1,14 @@
 #!/bin/bash
 
-# Specify the AMI ID directly
-AMI_ID="ami-0427e1bc4e8737655"  # Replace with your actual AMI ID
+# Hardcoded AMI ID
+SOURCE_AMI_ID="ami-0ad9a9727bcbcf904"
 
 # AWS accounts to share the AMI with (replace with actual account IDs)
 ACCOUNTS=(
   "280435798514"
-  )
+)
 
+# Specific regions to share the AMI
 REGIONS=(
   "us-east-2"
   "us-west-2"
@@ -27,7 +28,7 @@ wait_for_ami() {
   done
 }
 
-# Copy AMI to specified regions
+# Copy AMI to specified regions and share with specified accounts
 for region in "${REGIONS[@]}"; do
   echo "Copying AMI to region: $region"
   REGIONAL_AMI_ID=$(aws ec2 copy-image --source-image-id "$SOURCE_AMI_ID" --source-region "us-east-1" --region "$region" --name "Jenkins-AMI-$region" --output text)
@@ -45,3 +46,5 @@ for region in "${REGIONS[@]}"; do
       --region "$region"
   done
 done
+
+echo "AMIs have been copied to specified regions and shared with the specified accounts"
