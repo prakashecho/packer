@@ -18,7 +18,7 @@ source "amazon-ebs" "ubuntu" {
     volume_size = 8
     volume_type = "gp2"
     encrypted   = true
-    kms_key_id  = "alias/ami2_key-alias"
+    kms_key_id  = "alias/kmskeys"
   }
 }
 
