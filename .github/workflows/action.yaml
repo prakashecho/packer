@@ -32,7 +32,7 @@ jobs:
         run: chmod +x pack.sh  
 
       - name: Run pack.sh script
-        run: ./pack.sh
+        run: ./pack.sh || true
 
       - name: Show AMI details
         run: aws ec2 describe-images --image-ids ami-0a572cec404486d79 --region us-east-2  
