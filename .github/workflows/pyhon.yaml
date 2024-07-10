@@ -1,4 +1,4 @@
-name: python task
+name: python task.
 
 on:
   push: 
